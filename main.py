@@ -51,7 +51,7 @@ class CX:
         data = {
             'fid': '-1',
             'uname': self.acc,
-            'password': base64.b64encode(self.pwd.encode()).decode(),
+            'password': self.pwd,
             'Referer': 'https://office.chaoxing.com/',
             't': 'true',
             "verify": "0"
@@ -89,7 +89,7 @@ class CX:
         print(seat_result['msg'])
 
 
-cx = CX('13007491638','@liviolet0731','121')
+cx = CX('13007491638','QGxpdmlvbGV0MDczMQ==','200')
 
 
 
