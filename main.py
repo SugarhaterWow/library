@@ -21,6 +21,7 @@ class CX:
     def __init__(self, phonenums, password,seatNum):
         self.acc = phonenums 
         self.pwd = password
+        self.result=''
         self.mappid = None
         self.incode = None
         self.deptIdEnc = '991fe2698ebc49b9'
@@ -50,7 +51,7 @@ class CX:
             't': 'true',
             "verify": "0"
         }
-        print(base64.b64encode(self.pwd.encode()).decode())
+
         self.session.post('https://passport2.chaoxing.com/fanyalogin', data=data)
         s_url = 'https://office.chaoxing.com/front/third/apps/seat/index'
         self.session.get(s_url)
@@ -78,6 +79,7 @@ class CX:
                                     f'token={token}')
         
         seat_result = response.json()
+        self.result = seat_result
 def send_message(msg):
     title = msg['msg']
     content = msg['success']
