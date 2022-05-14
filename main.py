@@ -60,7 +60,6 @@ class CX:
         self.session.post('https://passport2.chaoxing.com/fanyalogin', data=data)
         s_url = 'https://office.chaoxing.com/front/third/apps/seat/index'
         self.session.get(s_url)
-        print('login success')
 
     # 标准时间转换
     # 预约座位 需要自己修改
@@ -74,7 +73,6 @@ class CX:
                                     f'day={tomorrow}&'   # 预约时间 上下需保持一致
                                     'backLevel=2&'.format(roomId)  )    # 必须的参数2)
         token = re.compile("token: '(.*)'").findall(response.text)[0]
-        print(token)
         
         response = self.session.get(url='https://office.chaoxing.com/data/apps/seatengine/submit?seatId=602&'
                                     f'roomId={roomId}&'      # 房间id roomId 上下需保持一致
@@ -86,7 +84,6 @@ class CX:
                                     f'token={token}')
         
         seat_result = response.json()
-        print(seat_result['msg'])
 
 
 cx = CX('13007491638','QGxpdmlvbGV0MDczMQ==','200')
