@@ -6,14 +6,18 @@
 import requests
 import base64
 import re
-import time
 import datetime
+from retry import retry
+
+
+
 
 
 
 
 class CX:
     # 实例化请传入手机号和密码
+    @retry(tries=3)
     def __init__(self, phonenums, password,seatNum):
         self.acc = phonenums 
         self.pwd = password
