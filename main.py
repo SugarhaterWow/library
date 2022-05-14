@@ -17,7 +17,7 @@ from retry import retry
 
 class CX:
     # 实例化请传入手机号和密码
-    @retry(tries=3)
+    @retry(tries=4)
     def __init__(self, phonenums, password,seatNum):
         self.acc = phonenums 
         self.pwd = password
@@ -26,9 +26,6 @@ class CX:
         self.deptIdEnc = '991fe2698ebc49b9'
         self.room = None
         self.deptId = None
-        self.room_id_name = {}
-        self.room_id_capacity = {}
-        self.all_seat = []
         self.db = {
             'sb': 0,
             'nb': 0
@@ -38,14 +35,7 @@ class CX:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11' ,
         }
         self.login()
-        self.status = {
-            '0': '待履约',
-            '1': '学习中',
-            '2': '已履约',
-            '3': '暂离中',
-            '5': '被监督中',
-            '7': '已取消',
-        }
+
         self.submit('866', seatNum)
 
     # 获取cookies 
@@ -88,9 +78,18 @@ class CX:
                                     f'token={token}')
         
         seat_result = response.json()
-
+def send_message(msg):
+    title = msg['msg']
+    content = msg['success']
+    api = 'https://sctapi.ftqq.com/SCT147683TbA8CuXrSgiIaPQO7EcyNxdvt.send?'
+    data = {
+        'text':title,
+        'desp':content
+    }
+    requests.post(api,data=data)
 
 cx = CX('13007491638','QGxpdmlvbGV0MDczMQ==','200')
+send_message(cx.result)
 
 
 
